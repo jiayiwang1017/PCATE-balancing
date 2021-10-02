@@ -156,7 +156,7 @@ ATE.ncb.core2 <- function(V, Vg, h1, ind, K, lam1s, lam2s = 0.01 * lam1s, lower 
     fittedus[i,] <- as.vector(nP1 %*% ee$vectors[, 1] * (N))
     rmseTo1s[i] <- sqrt(mean((ws[i,] - 1) ^ 2))
 
-    w0 <- ws[i, tind]
+    #w0 <- ws[i, tind]
 
   }
 
