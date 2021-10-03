@@ -56,7 +56,7 @@ fit0_ate <- ATE.ncb.SN(1 - treat, K, lam1s = lams, lam2s = eta * lams, traceit =
 
 Yadj <- fit1_ate$w * treat * Y - fit0_ate$w * (1 - treat) * Y
 
-hate = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 3]
+hate = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 3] * n ^ (1 / 5) * n ^ (-2 / 7)
 Ytemp = locpoly(x = V, y = Yadj, drv = 0, degree = 0, kernel = "normal",
         bandwidth = hate, gridsize = 300,
         range.x = c(min(Vnew), max(Vnew)), binned = FALSE, truncate = FALSE)
