@@ -25,7 +25,7 @@ ipw0 <- 1 / prophat * treat + 1 / (1 - prophat) * (1 - treat) # inverse propensi
 Yadj <- ipw0 * treat * Y - ipw0 * (1 - treat) * Y
 
 ###### local constant regression #######
-h = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 3] * n ^ (1 / 5) * n ^ (-2 / 7)
+h = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 2] * n ^ (1 / 5) * n ^ (-2 / 7)
 Ytemp = locpoly(x = V, y = Yadj, drv = 0, degree = 0, kernel = "normal",
         bandwidth = h, gridsize = 300,
         range.x = c(min(Vnew), max(Vnew)), binned = FALSE, truncate = FALSE)
@@ -56,7 +56,7 @@ fit0_ate <- ATE.ncb.SN(1 - treat, K, lam1s = lams, lam2s = eta * lams, traceit =
 
 Yadj <- fit1_ate$w * treat * Y - fit0_ate$w * (1 - treat) * Y
 
-hate = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 3] * n ^ (1 / 5) * n ^ (-2 / 7)
+hate = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 2] * n ^ (1 / 5) * n ^ (-2 / 7)
 Ytemp = locpoly(x = V, y = Yadj, drv = 0, degree = 0, kernel = "normal",
         bandwidth = hate, gridsize = 300,
         range.x = c(min(Vnew), max(Vnew)), binned = FALSE, truncate = FALSE)
@@ -108,7 +108,7 @@ phi0 = Y0hat + (1 - treat) * (Y - Y0hat) / (1 - prophat)
 Yadj = phi1 - phi0
 
 
-hdpi_lc = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 3] * n ^ (1 / 5) * n ^ (-2 / 7)
+hdpi_lc = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 2] * n ^ (1 / 5) * n ^ (-2 / 7)
 Ytemp = locpoly(x = V, y = Yadj, drv = 0, degree = 0, kernel = "normal",
         bandwidth = hdpi_lc, gridsize = 300,
         range.x = c(min(Vnew), max(Vnew)), binned = FALSE, truncate = FALSE)
@@ -119,7 +119,7 @@ cat(paste0("aipw_LM:", l2loss, "\n"))
 
 ############ LM fit ############
 Yadj = Y1hat - Y0hat
-hdpi_lc = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 3] * n ^ (1 / 5) * n ^ (-2 / 7)
+hdpi_lc = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 2] * n ^ (1 / 5) * n ^ (-2 / 7)
 Ytemp = locpoly(x = V, y = Yadj, drv = 0, degree = 0, kernel = "normal",
         bandwidth = hdpi_lc, gridsize = 300,
         range.x = c(min(Vnew), max(Vnew)), binned = FALSE, truncate = FALSE)
@@ -130,7 +130,7 @@ cat(paste0("LMfit:", l2loss, "\n"))
 phi1 = Y1hat + treat * (Y - Y1hat) * fit1_ate$w
 phi0 = Y0hat + (1 - treat) * (Y - Y0hat) * fit0_ate$w
 Yadj = phi1 - phi0
-hate_LM = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 3] * n ^ (1 / 5) * n ^ (-2 / 7)
+hate_LM = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 2] * n ^ (1 / 5) * n ^ (-2 / 7)
 Ytemp = locpoly(x = V, y = Yadj, drv = 0, degree = 0, kernel = "normal",
         bandwidth = hate_LM, gridsize = 300,
         range.x = c(min(Vnew), max(Vnew)), binned = FALSE, truncate = FALSE)
@@ -175,7 +175,7 @@ Y0hat = Knew %*% KRR_out$alpha
 
 Yadj = Y1hat - Y0hat
 
-hKRR = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 3] * n ^ (1 / 5) * n ^ (-2 / 7)
+hKRR = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 2] * n ^ (1 / 5) * n ^ (-2 / 7)
 Ytemp = locpoly(x = V, y = Yadj, drv = 0, degree = 0, kernel = "normal",
         bandwidth = hKRR, gridsize = 300,
         range.x = c(min(Vnew), max(Vnew)), binned = FALSE, truncate = FALSE)
@@ -188,7 +188,7 @@ phi1 = Y1hat + treat * (Y - Y1hat) / prophat
 phi0 = Y0hat + (1 - treat) * (Y - Y0hat) / (1 - prophat)
 Yadj = phi1 - phi0
 
-hdpi_lc = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 3] * n ^ (1 / 5) * n ^ (-2 / 7)
+hdpi_lc = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 2] * n ^ (1 / 5) * n ^ (-2 / 7)
 Ytemp = locpoly(x = V, y = Yadj, drv = 0, degree = 0, kernel = "normal",
         bandwidth = hdpi_lc, gridsize = 300,
         range.x = c(min(Vnew), max(Vnew)), binned = FALSE, truncate = FALSE)
@@ -201,7 +201,7 @@ cat(paste0("aipw_KRR:", l2loss, "\n"))
 phi1 = Y1hat + treat * (Y - Y1hat) * fit1_ate$w
 phi0 = Y0hat + (1 - treat) * (Y - Y0hat) * fit0_ate$w
 Yadj = phi1 - phi0
-hate_KRR = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 3] * n ^ (1 / 5) * n ^ (-2 / 7)
+hate_KRR = lpbwselect(y = Yadj, x = V, kernel = "gau", p = 0, bwselect = 'imse-dpi', bwcheck = NULL)$bws[1, 2] * n ^ (1 / 5) * n ^ (-2 / 7)
 Ytemp = locpoly(x = V, y = Yadj, drv = 0, degree = 0, kernel = "normal",
         bandwidth = hate_KRR, gridsize = 300,
         range.x = c(min(Vnew), max(Vnew)), binned = FALSE, truncate = FALSE)
